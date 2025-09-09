@@ -1,0 +1,14 @@
+<h3>Registrar asistencia</h3>
+
+<input placeholder="CourseId" [(ngModel)]="courseId" />
+
+<div *ngFor="let r of rows; let i = index">
+  <input placeholder="StudentId" [(ngModel)]="r.studentId" />
+  <label>
+    Presente
+    <input type="checkbox" [(ngModel)]="r.present" />
+  </label>
+</div>
+
+<button (click)="addRow()">Agregar</button>
+<button (click)="submit()">Enviar</button>

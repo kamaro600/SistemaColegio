@@ -1,0 +1,35 @@
+<h3>Mis cursos</h3>
+
+<!-- Formulario -->
+<div class="student-form">
+  <input
+    type="text"
+    placeholder="Mi StudentId"
+    [(ngModel)]="studentId"
+    name="studentId"
+  />
+  <button (click)="load()">🔍 Ver mis cursos</button>
+</div>
+
+<!-- Tabla de cursos -->
+<table class="courses-table" *ngIf="courses.length > 0; else noData">
+  <thead>
+    <tr>
+      <th>Nombre del curso</th>
+      <th>Horario</th>
+      <th>Profesor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of courses">
+      <td>{{ c.name }}</td>
+      <td>{{ c.schedule }}</td>
+      <td>{{ c.teacherName || '—' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Si no hay cursos -->
+<ng-template #noData>
+  <p>No tienes cursos registrados.</p>
+</ng-template>

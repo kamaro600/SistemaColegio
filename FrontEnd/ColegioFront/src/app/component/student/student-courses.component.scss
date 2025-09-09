@@ -1,0 +1,52 @@
+h3 {
+  margin-bottom: 1rem;
+  color: #388e3c;
+}
+
+/* Formulario */
+.student-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.student-form input {
+  flex: 1;
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.student-form button {
+  background-color: #388e3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.student-form button:hover {
+  background-color: #2e7d32;
+}
+
+/* Tabla */
+.courses-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.courses-table th,
+.courses-table td {
+  padding: 0.6rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.courses-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}

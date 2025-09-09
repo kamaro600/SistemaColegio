@@ -1,0 +1,27 @@
+<h3>Gestión de cursos</h3>
+
+<form (submit)="create()">
+  <input placeholder="Nombre curso" [(ngModel)]="name" name="name" />
+  <input placeholder="Horario" [(ngModel)]="schedule" name="schedule" />
+
+  <select [(ngModel)]="teacherId" name="teacherId">
+    <option *ngFor="let t of teachers" [value]="t.id">{{ t.fullName }}</option>
+  </select>
+
+  <div *ngFor="let s of students">
+    <label>
+      <input
+        type="checkbox"
+        [value]="s.id"
+        (change)="toggleStudent(s.id, $event)"
+      />
+      {{ s.fullName }}
+    </label>
+  </div>
+
+  <button type="submit">Crear curso</button>
+</form>
+
+<ul>
+  <li *ngFor="let c of courses">{{ c.name }} - {{ c.schedule }}</li>
+</ul>

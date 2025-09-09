@@ -1,0 +1,66 @@
+<h3>Gestión de usuarios</h3>
+
+<!-- Formulario -->
+<form class="user-form" (ngSubmit)="create()">
+  <div>
+    <input
+      type="text"
+      placeholder="Nombre"
+      [(ngModel)]="firstName"
+      name="fn"
+      required
+    />
+    <input
+      type="text"
+      placeholder="Apellido"
+      [(ngModel)]="lastName"
+      name="ln"
+      required
+    />
+    <input
+      type="email"
+      placeholder="Email"
+      [(ngModel)]="email"
+      name="email"
+      required
+    />
+    <select [(ngModel)]="role" name="role" required>
+      <option value="student">Alumno</option>
+      <option value="teacher">Docente</option>
+    </select>
+    <button type="submit">➕ Crear</button>
+  </div>
+</form>
+
+<!-- Tabla de usuarios -->
+<table class="user-table" *ngIf="users.length > 0; else noData">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre completo</th>
+      <th>Email</th>
+      <th>Rol</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let u of users">
+      <td>{{ u.id }}</td>
+      <td>{{ u.fullName }}</td>
+      <td>{{ u.email }}</td>
+      <td>
+        <span
+          class="badge"
+          [class.student]="u.role === 'student'"
+          [class.teacher]="u.role === 'teacher'"
+        >
+          {{ u.role === 'student' ? 'Alumno' : 'Docente' }}
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Cuando no hay usuarios -->
+<ng-template #noData>
+  <p>No hay usuarios registrados.</p>
+</ng-template>
