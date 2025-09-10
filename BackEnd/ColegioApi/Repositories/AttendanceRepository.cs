@@ -37,19 +37,47 @@ namespace ColegioApi.Repositories
                     a.Date == date.Date);
         }
 
-        public Task<Attendance?> GetAsync(Guid id)
+        public async Task<Attendance?> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.Attendances.FindAsync(id);
         }
 
-        public Task<IEnumerable<Attendance>> GetAllAsync()
+        public async Task<IEnumerable<Attendance>> GetAllAsync()
         {
-            return null;
+            return await _context.Attendances.ToListAsync();
         }
 
-        public Task DeleteAsync(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var c = await _context.Attendances.FindAsync(id);
+            if (c != null)
+            {
+                _context.Attendances.Remove(c);
+                await _context.SaveChangesAsync();
+            }
+        }
+
+        public async Task UpsertAttendancesAsync(List<Attendance> attendances)
+        {
+            var today = DateTime.UtcNow.Date;
+
+            foreach (var attendance in attendances)
+            {
+                var existingAttendance = await _context.Attendances
+                    .FirstOrDefaultAsync(a => a.CourseId == attendance.CourseId &&
+                                              a.StudentId == attendance.StudentId &&
+                                              a.Date.Date == today);
+
+                if (existingAttendance != null)
+                {
+                    existingAttendance.Present = attendance.Present;
+                }
+                else
+                {
+                    _context.Attendances.Add(attendance);
+                }
+            }
+            await _context.SaveChangesAsync();
         }
     }
 }

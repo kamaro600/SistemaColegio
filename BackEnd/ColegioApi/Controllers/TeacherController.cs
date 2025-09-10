@@ -16,14 +16,16 @@ namespace ColegioApi.Controllers
         [HttpPost("{courseId}/attendance")]
         public async Task<IActionResult> RegisterAttendance(Guid courseId, [FromBody] List<AttendanceDto> attendances)
         {
-            foreach (var a in attendances)
-            {
-                await _courseService.RegisterAttendanceAsync(courseId,
-                a.StudentId, a.Date, a.Present);
-            }
-            return Ok();
+            await _courseService.RegisterAttendanceAsync(courseId, attendances);
+            return NoContent();
         }
 
+        [HttpGet("{courseId}/attendances")]
+        public async Task<IActionResult> GetAttendances(Guid courseId)
+        {
+            var attendances = await _courseService.GetAttendancesByCourseAsync(courseId);
+            return Ok(attendances);
+        }
     }
 
 }

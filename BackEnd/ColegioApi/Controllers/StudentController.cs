@@ -1,4 +1,5 @@
-﻿using ColegioApi.Interfaces;
+﻿using ColegioApi.Entities;
+using ColegioApi.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,9 +21,8 @@ namespace ColegioApi.Controllers
         [HttpGet("{studentId}/courses")]
         public async Task<IActionResult> GetCourses(Guid studentId)
         {
-            var courses = await _courseService.GetAllCoursesAsync();
-            var filtered = courses.Where(c => c.StudentIds.Contains(studentId));
-            return Ok(filtered);
+            var courses = await _courseService.GetAllCoursesByStudentIdAsync(studentId);           
+            return Ok(courses);      
         }
 
 

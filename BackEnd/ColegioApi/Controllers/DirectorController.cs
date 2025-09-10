@@ -2,6 +2,7 @@
 using ColegioApi.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ColegioApi.Controllers
 {
@@ -31,6 +32,13 @@ namespace ColegioApi.Controllers
             return Ok(res);
         }
 
+        [HttpDelete("users/{id}")]
+        public async Task<IActionResult> DeleteUser(Guid id)
+        {
+            await _userService.DeleteUserAsync(id);
+            return NoContent();
+        }
+
         [HttpPost("courses")]
         public async Task<IActionResult> CreateCourse(CreateCourseDto dto)
         {
@@ -45,5 +53,11 @@ namespace ColegioApi.Controllers
             return Ok(res);
         }
 
+        [HttpDelete("courses/{id}")]
+        public async Task<IActionResult> DeleteCourse(Guid id)
+        {
+            await _courseService.DeleteCourseAsync(id);
+            return NoContent();
+        }
     }
 }

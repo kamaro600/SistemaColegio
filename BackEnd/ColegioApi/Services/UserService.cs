@@ -48,6 +48,11 @@ namespace ColegioApi.Services
             u.GetType().Name.ToLower()
             }).ToList();
         }
+
+        public async Task DeleteUserAsync(Guid id)
+        {
+            await _userRepo.DeleteAsync(id);
+        }
     }
 
 }

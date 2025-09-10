@@ -18,8 +18,8 @@ namespace ColegioApi.Repositories
             var c = await _db.Courses.FindAsync(id);
             if (c != null)
             {
-                _db.Courses.Remove(c); await
-                _db.SaveChangesAsync();
+                _db.Courses.Remove(c); 
+                await _db.SaveChangesAsync();
             }
         }
         public async Task<IEnumerable<Course>> GetAllAsync() => await _db.Courses.Include(c => c.Enrollments).ToListAsync();
@@ -28,6 +28,13 @@ namespace ColegioApi.Repositories
         public async Task UpdateAsync(Course entity)
         {
             _db.Courses.Update(entity); await _db.SaveChangesAsync();
+        }
+        public async Task<IEnumerable<Attendance>> GetAttendancesByCourseAsync(Guid courseId)
+        {
+            return await _db.Attendances
+                            .Where(a => a.CourseId == courseId)
+                            .AsNoTracking()
+                            .ToListAsync();
         }
     }
 

@@ -24,8 +24,17 @@ namespace ColegioApi
             // Services (business)
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<ICourseService, CourseService>();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll",
+                    policy => policy.AllowAnyOrigin()
+                                    .AllowAnyMethod()
+                                    .AllowAnyHeader());
+            });
+
            
             var app = builder.Build();
+            app.UseCors("AllowAll");
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -34,6 +43,8 @@ namespace ColegioApi
             app.UseRouting();
             app.UseAuthorization();
             app.MapControllers();
+
+
             // Seed demo data
             using (var scope = app.Services.CreateScope())
             {

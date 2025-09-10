@@ -6,5 +6,6 @@ namespace ColegioApi.Interfaces
     {
         Task<UserDto> CreateUserAsync(CreateUserDto dto);
         Task<IEnumerable<UserDto>> GetAllUsersAsync();
+        Task DeleteUserAsync(Guid id);
     }
 }

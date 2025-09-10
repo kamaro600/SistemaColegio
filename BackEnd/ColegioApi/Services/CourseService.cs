@@ -61,12 +61,26 @@ namespace ColegioApi.Services
                 StudentIds = c.Enrollments.Select(e => e.StudentId).ToList()
             }).ToList();
         }
-        public async Task RegisterAttendanceAsync(Guid courseId, Guid studentId, DateTime date, bool present)
+        public async Task RegisterAttendanceAsync(Guid courseId, List<AttendanceDto> payload)
         {
             var course = await _courseRepo.GetAsync(courseId);
             if (course == null) throw new Exception("Curso no encontrado");
 
-            var attendance = new Attendance
+
+            var attendancesToUpsert = payload.Select(dto => new Attendance
+            {
+                Id = Guid.NewGuid(),
+                CourseId = courseId,
+                StudentId = dto.StudentId,
+                Date = dto.Date.Date,
+                Present = dto.Present
+            }).ToList();
+
+            // Aquí llamamos al repositorio para que maneje la operación en lote
+            await _attendanceRepo.UpsertAttendancesAsync(attendancesToUpsert);
+
+
+           /* var attendance = new Attendance
             {
                 CourseId = courseId,
                 StudentId = studentId,
@@ -75,7 +89,65 @@ namespace ColegioApi.Services
             };
 
             // inserción directa
-            await _attendanceRepo.AddAsync(attendance);
+            await _attendanceRepo.AddAsync(attendance);**/
+        }
+        public async Task DeleteCourseAsync(Guid id)
+        {
+            await _courseRepo.DeleteAsync(id);
+        }
+
+        public async Task<IEnumerable<CourseDto>> GetAllCoursesByStudentIdAsync(Guid studentId)
+        {
+            var courses = await _courseRepo.GetAllAsync();
+            var users = await _userRepo.GetAllAsync();
+
+            var filtered = courses.Where(c => c.Enrollments.Any(e => e.StudentId == studentId));
+
+
+            var coursesWithTeacherName = filtered.Select(course =>
+            {
+                var teacher = users.FirstOrDefault(u => u.Id == course.TeacherId);
+                return new 
+                {
+                    course.Id,
+                    course.Name,
+                    course.Schedule,
+                    course.TeacherId,
+                    TeacherName = teacher != null ? $"{teacher.FirstName} {teacher.LastName}" : "No Asignado",
+                    StudentIds = course.Enrollments.Select(e => e.StudentId).ToList()
+                };
+            });
+
+            return coursesWithTeacherName.Select(c => new CourseDto
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Schedule = c.Schedule,
+                TeacherId = c.TeacherId,
+                TeacherName =c.TeacherName,
+                StudentIds = c.StudentIds
+            }).ToList();
+        }
+
+        public async Task<IEnumerable<AttendanceDto>> GetAttendancesByCourseAsync(Guid courseId)
+        {
+            // Obtener las asistencias del repositorio
+            var attendances = await _courseRepo.GetAttendancesByCourseAsync(courseId);
+
+            // Obtener todos los usuarios para asociar los IDs con los nombres
+            var users = await _userRepo.GetAllAsync();
+
+            // Mapear los registros de asistencia al DTO, incluyendo el nombre del estudiante
+            return attendances.Select(a =>
+            {
+                var student = users.FirstOrDefault(u => u.Id == a.StudentId);
+                var attendanceDto = new AttendanceDto();
+                attendanceDto.StudentId = a.StudentId;
+                attendanceDto.StudentName = student != null ? $"{student.FirstName} {student.LastName}" : "Desconocido";
+                attendanceDto.Date = a.Date;
+                attendanceDto.Present = a.Present;
+                return attendanceDto;
+            }).ToList();
         }
     }
 
