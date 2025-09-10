@@ -3,11 +3,11 @@
 <form (submit)="create()">
   <input placeholder="Nombre curso" [(ngModel)]="name" name="name" />
   <input placeholder="Horario" [(ngModel)]="schedule" name="schedule" />
-
+  <label>Profesor:</label>
   <select [(ngModel)]="teacherId" name="teacherId">
     <option *ngFor="let t of teachers" [value]="t.id">{{ t.fullName }}</option>
   </select>
-
+  <label>Estudiantes:</label>
   <div *ngFor="let s of students">
     <label>
       <input
@@ -22,6 +22,22 @@
   <button type="submit">Crear curso</button>
 </form>
 
-<ul>
-  <li *ngFor="let c of courses">{{ c.name }} - {{ c.schedule }}</li>
-</ul>
+
+<table class="courses-table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Horario</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of courses">
+      <td>{{ c.name }}</td>
+      <td>{{ c.schedule }}</td>
+      <td>
+        <button class="delete-btn" (click)="delete(c.id)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

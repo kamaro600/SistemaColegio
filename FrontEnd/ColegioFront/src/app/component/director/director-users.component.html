@@ -40,6 +40,7 @@
       <th>Nombre completo</th>
       <th>Email</th>
       <th>Rol</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -55,6 +56,9 @@
         >
           {{ u.role === 'student' ? 'Alumno' : 'Docente' }}
         </span>
+      </td>
+      <td>
+        <button  class="delete-btn" (click)="delete(u.id)">Eliminar</button>
       </td>
     </tr>
   </tbody>

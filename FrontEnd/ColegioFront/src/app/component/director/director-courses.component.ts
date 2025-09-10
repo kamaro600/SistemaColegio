@@ -57,4 +57,12 @@ export class DirectorCoursesComponent implements OnInit {
       this.selectedStudents.clear();
     });
   }
+
+   delete(id: string) {
+    if (confirm('¿Estás seguro de que quieres eliminar este curso?')) {
+      this.courseService.deleteCourse(id).subscribe(() => {
+        this.load();
+      });
+    }
+  }
 }

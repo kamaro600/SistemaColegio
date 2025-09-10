@@ -1,4 +1,4 @@
-h3 {
+h3, h4 {
   margin-bottom: 1rem;
   color: #1976d2;
 }
@@ -6,23 +6,36 @@ h3 {
 form {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 
   input,
   select {
-    padding: 0.4rem;
+    padding: 0.6rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+  }
+  
+  .students-list {
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+    h4 {
+      margin-bottom: 0.5rem;
+    }
   }
 
   button {
     background-color: #1976d2;
     color: white;
-    padding: 0.5rem;
+    padding: 0.7rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 1rem;
 
     &:hover {
       background-color: #125aa0;
@@ -30,11 +43,47 @@ form {
   }
 }
 
-ul {
-  list-style: none;
-  padding: 0;
+hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid #eee;
+}
 
-  li {
-    padding: 0.3rem 0;
+.courses-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
+  }
+  
+  thead {
+    background-color: #1976d2;
+    color: white;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tbody tr:hover {
+    background-color: #e9e9e9;
+  }
+
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #c82333;
+    }
   }
 }

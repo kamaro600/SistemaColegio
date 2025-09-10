@@ -17,10 +17,6 @@ export class StudentCoursesComponent {
   constructor(private courseService: CourseService) {}
 
   load() {
-    this.courseService.getCourses().subscribe(all => {
-      this.courses = all.filter((c: any) =>
-        c.studentIds.includes(this.studentId)
-      );
-    });
+    this.courseService.getCoursesByStudent(this.studentId).subscribe(all => { this.courses = all;});
   }
 }

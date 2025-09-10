@@ -43,4 +43,12 @@ export class DirectorUsersComponent implements OnInit {
       this.id = '';
     });
   }
+
+  delete(id: string) {
+    if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+      this.userService.deleteUser(id).subscribe(() => {
+        this.load();
+      });
+    }
+  }
 }

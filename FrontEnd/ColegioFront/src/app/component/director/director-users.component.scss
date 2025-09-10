@@ -66,3 +66,16 @@ h3 {
 .badge.teacher {
   background-color: #d32f2f;
 }
+
+ .delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #c82333;
+    }
+  }

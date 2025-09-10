@@ -1,14 +1,63 @@
-<h3>Registrar asistencia</h3>
+<div class="attendance-container">
+  <h3>Registrar Asistencia</h3>
 
-<input placeholder="CourseId" [(ngModel)]="courseId" />
+  <div class="select-course-group">
+    <label for="course-select">Selecciona un curso:</label>
+    <select
+      id="course-select"
+      [(ngModel)]="selectedCourseId"
+      (change)="onCourseSelected()"
+    >
+      <option value="" disabled selected>-- Elige un curso --</option>
+      <option *ngFor="let course of allCourses" [value]="course.id">
+        {{ course.name }} - {{ course.schedule }}
+      </option>
+    </select>
+  </div>
 
-<div *ngFor="let r of rows; let i = index">
-  <input placeholder="StudentId" [(ngModel)]="r.studentId" />
-  <label>
-    Presente
-    <input type="checkbox" [(ngModel)]="r.present" />
-  </label>
+  <div *ngIf="studentsInCourse.length > 0">
+    <h4>Registro de Asistencia del Día</h4>
+    <table class="students-table">
+      <thead>
+        <tr>
+          <th>Nombre del Alumno</th>
+          <th>Presente</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of studentsInCourse; let i = index">
+          <td>{{ student.fullName }}</td>
+          <td>
+            <input type="checkbox" [(ngModel)]="attendanceRows[i].present" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button (click)="submit()" class="submit-btn">Enviar Asistencias</button>
+  </div>
+
+  <div *ngIf="selectedCourseId && registeredAttendances.length > 0">
+    <hr />
+    <h4>Asistencias Registradas</h4>
+    <table class="attendances-history-table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Nombre del Alumno</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let attendance of registeredAttendances">
+          <td>{{ attendance.date | date: 'mediumDate' }}</td>
+          <td>{{ attendance.studentName }}</td>
+          <td>
+            <span [ngClass]="attendance.present ? 'present' : 'absent'">
+              {{ attendance.present ? 'Presente' : 'Ausente' }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-<button (click)="addRow()">Agregar</button>
-<button (click)="submit()">Enviar</button>
