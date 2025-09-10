@@ -1,10 +1,17 @@
-
 # Sistema Colegio
 
 ## Clonar el repositorio
 
 ```powershell
 git clone https://github.com/kamaro600/SistemaColegio.git
+```
+
+## Acceder a la carpeta del proyecto
+
+Después de clonar el repositorio, accede a la carpeta principal:
+
+```powershell
+cd SistemaColegio
 ```
 
 ## Instrucciones para ejecutar el aplicativo
