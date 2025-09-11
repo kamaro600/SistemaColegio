@@ -1,5 +1,6 @@
 # Sistema Colegio
 
+
 ## Clonar el repositorio
 
 ```powershell
