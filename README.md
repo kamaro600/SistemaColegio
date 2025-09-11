@@ -18,7 +18,8 @@ cd SistemaColegio
 
 ### Backend (.NET API)
 1. Abre una terminal y navega a la carpeta `BackEnd/ColegioApi`.
-2. Ejecuta el siguiente comando para iniciar la API:
+2. Instala .NET https://aka.ms/dotnet/download.
+3. Ejecuta el siguiente comando para iniciar la API:
    
 	```powershell
 	dotnet run
@@ -32,7 +33,15 @@ cd SistemaColegio
 	```powershell
 	npm install
 	```
-3. Inicia la aplicación Angular:
+3. Instala angular:
+	```powershell
+    npm install -g @angular/cli@18
+	```
+4. Confirma instalación:
+    ```powershell
+	ng version
+	```
+4. Inicia la aplicación Angular:
    
 	```powershell
 	ng serve
