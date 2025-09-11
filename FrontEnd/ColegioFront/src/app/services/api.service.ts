@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private readonly baseUrl = 'https://localhost:7115/api'; // Ajustar según Program.cs
+  private readonly baseUrl = 'https://localhost:5086/api'; // Ajustar según Program.cs
 
   constructor(private http: HttpClient) {}
 

@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'   // 👈 Esto asegura que Angular registre el servicio
 })
 export class UserService {
-  private apiUrl = 'https://localhost:7115/api/director/users';
+  private apiUrl = 'http://localhost:5086/api/director/users';
 
   constructor(private http: HttpClient) {}
 
